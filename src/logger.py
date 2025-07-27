@@ -2,10 +2,6 @@
 import logging
 import os
 from datetime import datetime # (You can remove this if you didn't use it, but keep it if it's there)
-
-# --- ADD THIS PRINT STATEMENT AT THE VERY TOP OF THE FILE ---
-
-
 def setup_logger():
     """
     Sets up a structured logger for the trading bot.
