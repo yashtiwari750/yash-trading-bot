@@ -181,4 +181,7 @@ All bot activities, including API requests, responses, order placements, and err
 │       ├── twap.py       # Implementation for TWAP strategy (simplified)
 │       └── grid.py       # Implementation for Grid strategy (simplified)
 
-
+```
+## Contact
+Yash Tiwari
+yasht220303@gmail.com
