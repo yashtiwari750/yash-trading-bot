@@ -159,6 +159,7 @@ All commands must be executed from the **project's root directory** with the vir
 All bot activities, including API requests, responses, order placements, and errors, are logged in a structured format to `bot.log` located in the project's root directory [cite: 15, Logging Standards].
 
 ## Project Structure
+```text
 .
 ├── bot.py                # Main CLI entry point for the bot
 ├── .env                  # Environment variables (API keys - NOT committed to Git)
