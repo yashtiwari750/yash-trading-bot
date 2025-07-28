@@ -63,9 +63,9 @@ It's recommended to use a Python virtual environment to manage dependencies.
         source venv/bin/activate
         ```
     (You should see `(venv)` in your terminal prompt when active.)
-4.  Install the required Python libraries using the provided `requirements.txt`:
+4.  Install the necessary libraries:
     ```bash
-    pip install -r requirements.txt
+    pip install python-binance python-dotenv
     ```
     (This will install `python-binance`, `python-dotenv`, and any other necessary libraries specified with their exact versions [cite: python-binance==1.0.22, python-dotenv==1.0.1].)
 
@@ -171,7 +171,6 @@ All bot activities, including API requests, responses, order placements, and err
 ├── check_connection.py   # Script to verify initial API connectivity
 ├── venv/                 # Python virtual environment directory (ignored by Git)
 ├── src/                  # Source code directory
-│   ├── __init__.py       # Makes 'src' a Python package
 │   ├── config.py         # Handles API key loading and general configurations
 │   ├── logger.py         # Configures the structured logging system
 │   ├── market_orders.py  # Logic for placing market orders
