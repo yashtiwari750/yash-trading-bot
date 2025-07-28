@@ -158,9 +158,12 @@ All commands must be executed from the **project's root directory** with the vir
 ### Logging
 All bot activities, including API requests, responses, order placements, and errors, are logged in a structured format to `bot.log` located in the project's root directory [cite: 15, Logging Standards].
 
-## Project Structure
+## **Project Structure**
 ```text
 .
+├── index.html            # Frontend HTML file
+├── script.js             # JavaScript for frontend functionality
+├── style.css             # Stylesheet for the frontend
 ├── bot.py                # Main CLI entry point for the bot
 ├── .env                  # Environment variables (API keys - NOT committed to Git)
 ├── .gitignore            # Specifies files/folders to ignore in Git
@@ -168,14 +171,14 @@ All bot activities, including API requests, responses, order placements, and err
 ├── check_connection.py   # Script to verify initial API connectivity
 ├── venv/                 # Python virtual environment directory (ignored by Git)
 ├── src/                  # Source code directory
-│   ├── init.py       # Makes 'src' a Python package
+│   ├── __init__.py       # Makes 'src' a Python package
 │   ├── config.py         # Handles API key loading and general configurations
 │   ├── logger.py         # Configures the structured logging system
 │   ├── market_orders.py  # Logic for placing market orders
 │   ├── limit_orders.py   # Logic for placing limit orders
-│   ├── pycache/      # Python cache directory (ignored by Git)
+│   ├── __pycache__/      # Python cache directory (ignored by Git)
 │   └── advanced/         # Directory for advanced order types (bonus features)
-│       ├── pycache/  # Python cache directory (ignored by Git)
+│       ├── __pycache__/  # Python cache directory (ignored by Git)
 │       ├── oco.py        # Implementation for OCO-like orders (Stop-Loss/Take-Profit)
 │       ├── stop_limit.py # Implementation for Stop-Limit orders
 │       ├── twap.py       # Implementation for TWAP strategy (simplified)
