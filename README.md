@@ -159,3 +159,31 @@ All commands must be executed from the **project's root directory** with the vir
 All bot activities, including API requests, responses, order placements, and errors, are logged in a structured format to `bot.log` located in the project's root directory [cite: 15, Logging Standards].
 
 ## Project Structure
+.
+├── bot.py                # Main CLI entry point for the bot
+├── .env                  # Environment variables (API keys - NOT committed to Git)
+├── .gitignore            # Specifies files/folders to ignore in Git
+├── bot.log               # Detailed log file for all bot operations
+├── check_connection.py   # Script to verify initial API connectivity
+├── venv/                 # Python virtual environment directory (ignored by Git)
+├── src/                  # Source code directory
+│   ├── init.py       # Makes 'src' a Python package
+│   ├── config.py         # Handles API key loading and general configurations
+│   ├── logger.py         # Configures the structured logging system
+│   ├── market_orders.py  # Logic for placing market orders
+│   ├── limit_orders.py   # Logic for placing limit orders
+│   ├── pycache/      # Python cache directory (ignored by Git)
+│   └── advanced/         # Directory for advanced order types (bonus features)
+│       ├── pycache/  # Python cache directory (ignored by Git)
+│       ├── oco.py        # Implementation for OCO-like orders (Stop-Loss/Take-Profit)
+│       ├── stop_limit.py # Implementation for Stop-Limit orders
+│       ├── twap.py       # Implementation for TWAP strategy (simplified)
+│       └── grid.py       # Implementation for Grid strategy (simplified)
+
+**Key changes and why:**
+
+* **`bot.log`:** Moved it to the root level, as that's where your `logger.py` is configured to create it.
+* **`check_connection.py`:** Added it to the root level, as it's a standalone script for initial setup.
+* **`venv/`:** Included it to show the virtual environment, but clarified it's ignored by Git.
+* **`__pycache__/`:** Included these directories to reflect their presence in your actual structure, and clarified they are ignored by Git.
+* **`report.pdf` and `requirements.txt`:** These are not in your screenshot, but they are required for the submission [cite: Killer Demo Package]. I've assumed they will be at the root level alongside `bot.py`, `.env`, etc., as is standard. If you've placed them elsewhere, adjust accordingly.
