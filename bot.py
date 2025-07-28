@@ -11,7 +11,10 @@ from src.config import BINANCE_API_KEY, BINANCE_API_SECRET # For initializing cl
 from src.logger import logger # Our centralized logger
 from src.market_orders import place_market_order # Our market order function
 from src.limit_orders import place_limit_order # Our limit order function
-
+from src.advanced.oco import place_oco_orders
+from src.advanced.stop_limit_order import place_stop_limit_order
+from src.advanced.twap import execute_twap_order
+from src.advanced.grid import place_grid_orders
 # Initialize Binance Client for operations that need it (like check_balance).
 # This will be used by some CLI commands directly.
 client = Client(BINANCE_API_KEY, BINANCE_API_SECRET, testnet=True)
@@ -81,6 +84,63 @@ def main():
     limit_parser.add_argument("--price", type=float, required=True, help="Desired price for the limit order.")
     # Set the function to call when 'limit-order' is used.
     limit_parser.set_defaults(func=lambda args: place_limit_order(args.symbol, args.side, args.quantity, args.price))
+
+# --- Subparser for Stop-Limit Orders (Bonus) ---
+    stop_limit_parser = subparsers.add_parser(
+        "stop-limit-order",
+        help="Place a Stop-Limit order (triggers a limit order when stop price is reached)."
+    )
+    stop_limit_parser.add_argument("--symbol", type=str, required=True, help="Trading pair (e.g., BTCUSDT).")
+    stop_limit_parser.add_argument("--side", type=str, required=True, choices=["BUY", "SELL"], help="Order side (BUY or SELL).")
+    stop_limit_parser.add_argument("--quantity", type=float, required=True, help="Quantity of the base asset to trade.")
+    stop_limit_parser.add_argument("--stop-price", type=float, required=True, help="Price at which the order becomes active (trigger).")
+    stop_limit_parser.add_argument("--limit-price", type=float, required=True, help="Desired limit price for the triggered order.")
+    #set the function to call when 'stop-limit-order' is used.
+    stop_limit_parser.set_defaults(func=lambda args: place_stop_limit_order(args.symbol, args.side, args.quantity, args.stop_price, args.limit_price))
+
+# --- Subparser for TWAP Orders (Bonus) ---
+    twap_parser = subparsers.add_parser(
+        "twap-order",
+        help="Execute a Time-Weighted Average Price (TWAP) order strategy."
+    )
+    twap_parser.add_argument("--symbol", type=str, required=True, help="Trading pair (e.g., BTCUSDT).")
+    twap_parser.add_argument("--side", type=str, required=True, choices=["BUY", "SELL"], help="Order side (BUY or SELL).")
+    twap_parser.add_argument("--total-quantity", type=float, required=True, help="Total quantity of the base asset to trade.")
+    twap_parser.add_argument("--num-intervals", type=int, required=True, help="Number of intervals to break the order into.")
+    twap_parser.add_argument("--interval-seconds", type=int, required=True, help="Seconds between each order execution.")
+    # set the function to call when 'twap-order' is used.
+    twap_parser.set_defaults(func=lambda args: execute_twap_order(
+        args.symbol, args.side, args.total_quantity, args.num_intervals, args.interval_seconds
+    ))
+
+# --- Subparser for Grid Orders (Bonus) ---
+    grid_parser = subparsers.add_parser(
+        "grid-order",
+        help="Place a grid of buy and sell limit orders within a price range (initial placement)."
+    )
+    grid_parser.add_argument("--symbol", type=str, required=True, help="Trading pair (e.g., BTCUSDT).")
+    grid_parser.add_argument("--min-price", type=float, required=True, help="Bottom price of the grid range.")
+    grid_parser.add_argument("--max-price", type=float, required=True, help="Top price of the grid range.")
+    grid_parser.add_argument("--num-buy-orders", type=int, required=True, help="Number of buy limit orders to place in the grid.")
+    grid_parser.add_argument("--num-sell-orders", type=int, required=True, help="Number of sell limit orders to place in the grid.")
+    grid_parser.add_argument("--quantity-per-order", type=float, required=True, help="Quantity for each individual buy/sell order.")
+    grid_parser.set_defaults(func=lambda args: place_grid_orders(
+        args.symbol, args.min_price, args.max_price, args.num_buy_orders, args.num_sell_orders, args.quantity_per_order
+    ))
+    
+# --- Subparser for OCO Orders (Bonus) ---
+    oco_parser = subparsers.add_parser(
+        "oco-order",
+        help="Place a One-Cancels-the-Other (OCO) order (Stop-Loss and Take-Profit simultaneously)."
+    )
+    oco_parser.add_argument("--symbol", type=str, required=True, help="Trading pair (e.g., BTCUSDT).")
+    oco_parser.add_argument("--side", type=str, required=True, choices=["BUY", "SELL"], 
+                            help="Order side (BUY to close SELL position, SELL to close BUY position).")
+    oco_parser.add_argument("--quantity", type=float, required=True, help="Quantity of the base asset for the position.")
+    oco_parser.add_argument("--stop-price", type=float, required=True, help="Price at which stop-loss order is triggered.")
+    oco_parser.add_argument("--take-profit-price", type=float, required=True, help="Price at which take-profit order is triggered.")
+    # set the function to call when 'oco-order' is used.
+    oco_parser.set_defaults(func=lambda args: place_oco_orders(args.symbol, args.side, args.quantity, args.stop_price, args.take_profit_price))
 
     # --- Subparser for Check Balance ---
     balance_parser = subparsers.add_parser(
