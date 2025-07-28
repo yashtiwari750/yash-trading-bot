@@ -180,10 +180,4 @@ All bot activities, including API requests, responses, order placements, and err
 │       ├── twap.py       # Implementation for TWAP strategy (simplified)
 │       └── grid.py       # Implementation for Grid strategy (simplified)
 
-**Key changes and why:**
 
-* **`bot.log`:** Moved it to the root level, as that's where your `logger.py` is configured to create it.
-* **`check_connection.py`:** Added it to the root level, as it's a standalone script for initial setup.
-* **`venv/`:** Included it to show the virtual environment, but clarified it's ignored by Git.
-* **`__pycache__/`:** Included these directories to reflect their presence in your actual structure, and clarified they are ignored by Git.
-* **`report.pdf` and `requirements.txt`:** These are not in your screenshot, but they are required for the submission [cite: Killer Demo Package]. I've assumed they will be at the root level alongside `bot.py`, `.env`, etc., as is standard. If you've placed them elsewhere, adjust accordingly.
