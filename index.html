@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--
+    This is the main HTML file for your Binance Futures Order Bot Frontend.
+    It provides the structure and content of your web page.
+-->
+<html lang="en">
+<head>
+    <!--
+        <meta charset="UTF-8">: Specifies the character encoding for the document. UTF-8 supports almost all characters
+                                  and symbols, ensuring your text displays correctly.
+    -->
+    <meta charset="UTF-8">
+    <!--
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">: This is crucial for responsive web design.
+        - width=device-width: Sets the width of the viewport to the width of the device's screen.
+        - initial-scale=1.0: Sets the initial zoom level when the page is first loaded.
+        Together, these ensure the page scales correctly on different devices (mobile, tablet, desktop).
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binance Futures Order Bot - Frontend</title>
+    
+    <!--
+        Tailwind CSS CDN (Content Delivery Network):
+        This script tag loads the entire Tailwind CSS framework directly from a server.
+        Tailwind provides utility-first CSS classes (e.g., 'flex', 'mb-4', 'text-xl') that you apply directly in your HTML
+        to style elements. This makes styling very fast and consistent.
+    -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!--
+        Google Fonts - Inter:
+        This link imports the 'Inter' font from Google Fonts. We use this for a clean, modern look.
+        It's good practice to specify a fallback font ('sans-serif') in case 'Inter' doesn't load.
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!--
+        Link to your custom CSS file:
+        This links your HTML document to your 'style.css' file, located in the 'css' folder.
+        This is where you'll put any custom styles that aren't easily done with Tailwind, or
+        to override/extend Tailwind's default styles.
+        'rel="stylesheet"' indicates it's a stylesheet.
+        'href="css/style.css"' specifies the path to the CSS file relative to the HTML file.
+    -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="antialiased">
+    <!--
+        The <body> tag contains all the visible content of your web page.
+        'class="antialiased"': A Tailwind CSS class that applies font smoothing for better text rendering.
+    -->
+
+    <!--
+        Main container for the entire page content:
+        'container': A custom CSS class (defined in style.css) to set max-width and center the content.
+        'py-8': Tailwind CSS class for vertical padding (padding-top and padding-bottom) of 2rem.
+    -->
+    <div class="container py-8">
+        <!--
+            Page Title:
+            'text-4xl': Tailwind CSS for font size (4xl).
+            'font-bold': Tailwind CSS for bold font weight.
+            'text-center': Tailwind CSS for center-aligning text.
+            'mb-8': Tailwind CSS for margin-bottom (2rem).
+            'text-blue-400': Tailwind CSS for a blue text color.
+        -->
+        <h1 class="text-4xl font-bold text-center mb-8 text-blue-400">Binance Futures Order Bot</h1>
+        
+        <!--
+            Descriptive paragraph:
+            'text-center': Center-aligns the text.
+            'text-lg': Tailwind CSS for a larger font size.
+            'mb-8': Margin-bottom.
+            'text-gray-400': Gray text color.
+        -->
+        <p class="text-center text-lg mb-8 text-gray-400">
+            Generate CLI commands and view bot logs. Run generated commands in your terminal to interact with the bot.
+        </p>
+
+        <!--
+            Section for CLI Command Generator:
+            'card': A custom CSS class for a styled box (background, border, shadow, rounded corners).
+            'mb-6': Margin-bottom.
+        -->
+        <div class="card mb-6">
+            <!-- Sub-heading for the generator section -->
+            <h2 class="text-2xl font-semibold mb-4 text-blue-300">CLI Command Generator</h2>
+            
+            <!-- Container for spacing between elements -->
+            <div class="space-y-4">
+                <!-- Order Type Selection Dropdown -->
+                <div>
+                    <!-- Label for the dropdown -->
+                    <label for="orderType" class="block text-sm font-medium mb-1">Select Order Type:</label>
+                    <!--
+                        Dropdown (select element):
+                        'id="orderType"': Unique identifier for JavaScript to access this element.
+                        'input-field': Custom CSS class for styling (defined in style.css).
+                        'onchange="showOrderForm()"': An event handler that calls the 'showOrderForm' JavaScript function
+                                                      whenever the selected option in the dropdown changes.
+                    -->
+                    <select id="orderType" class="input-field">
+                        <option value="">-- Select --</option>
+                        <option value="check-balance">Check Balance</option>
+                        <option value="market-order">Market Order</option>
+                        <option value="limit-order">Limit Order</option>
+                        <option value="oco-order">OCO Order (Stop-Loss/Take-Profit)</option>
+                        <option value="stop-limit-order">Stop-Limit Order</option>
+                        <option value="twap-order">TWAP Order</option>
+                        <option value="grid-order">Grid Order</option>
+                    </select>
+                </div>
+
+                <!--
+                    Dynamic Order Forms container:
+                    'id="orderForms"': JavaScript will inject different input fields here based on the selected order type.
+                    'space-y-4': Tailwind CSS class to add vertical spacing between child elements.
+                -->
+                <div id="orderForms" class="space-y-4">
+                    <!-- Forms will be injected here by JavaScript -->
+                </div>
+
+                <!--
+                    Generated Command Output section:
+                    'id="commandOutput"': Unique identifier for JavaScript.
+                    'hidden': Tailwind CSS class that initially hides this entire div (display: none).
+                              JavaScript will remove this class when a command is generated.
+                    'mt-4': Margin-top.
+                -->
+                <div id="commandOutput" class="hidden mt-4">
+                    <label class="block text-sm font-medium mb-1">Generated Command:</label>
+                    <div class="flex items-center space-x-2">
+                        <!--
+                            <pre> tag: Preserves whitespace and line breaks, suitable for displaying code.
+                            'id="generatedCommand"': JavaScript will put the generated command string here.
+                            'code-block': Custom CSS class for styling the code display area.
+                            'flex-grow': Tailwind CSS class that allows this element to grow and take available space
+                                         within its flex container, pushing the button to the right.
+                        -->
+                        <pre id="generatedCommand" class="code-block flex-grow"></pre>
+                        <!--
+                            Copy Button:
+                            'id="copyBtn"': Unique identifier for JavaScript to attach an event listener.
+                            'btn': Custom CSS class for general button styling.
+                            'btn-secondary': Custom CSS class for secondary button styling (grey).
+                            'flex-shrink-0': Tailwind CSS class that prevents the button from shrinking.
+                        -->
+                        <button id="copyBtn" class="btn btn-secondary flex-shrink-0">Copy</button>
+                    </div>
+                    <!-- Message displayed after copying to clipboard -->
+                    <p id="copyMessage" class="text-green-400 text-sm mt-1 hidden">Copied to clipboard!</p>
+                </div>
+            </div>
+        </div>
+
+        <!--
+            Section for Bot Log Viewer:
+            'card': Custom CSS class for styling.
+        -->
+        <div class="card">
+            <h2 class="text-2xl font-semibold mb-4 text-blue-300">Bot Log Viewer</h2>
+            <p class="text-sm text-gray-400 mb-4">
+                To view your bot's activity, open your `bot.log` file (in your project's root directory), copy its entire content, and paste it into the textarea below. Then click "Display Log".
+            </p>
+            <!--
+                Textarea for pasting log content:
+                'id="logInput"': Unique identifier for JavaScript.
+                'log-textarea': Custom CSS class for styling.
+                'placeholder': Provides a hint text when the textarea is empty.
+            -->
+            <textarea id="logInput" class="log-textarea mb-4" placeholder="Paste your bot.log content here..."></textarea>
+            <!--
+                Display Log Button:
+                'id="displayLogBtn"': Unique identifier for JavaScript.
+                'btn': Custom CSS class for primary button styling (green).
+            -->
+            <button id="displayLogBtn" class="btn">Display Log</button>
+            <!--
+                Log Output Display Area:
+                'id="logOutput"': Unique identifier for JavaScript.
+                'code-block': Custom CSS class for styling.
+                'mt-4': Margin-top.
+                'hidden': Initially hides this div. JavaScript will show it when logs are displayed.
+            -->
+            <div id="logOutput" class="code-block mt-4 hidden"></div>
+        </div>
+    </div>
+
+    <!--
+        Link to your custom JavaScript file:
+        This script tag loads your 'script.js' file, located in the 'js' folder.
+        It's placed just before the closing </body> tag. This is a common best practice
+        because it ensures that the HTML content is fully loaded and available in the DOM
+        (Document Object Model) before the JavaScript tries to interact with it.
+    -->
+    <script src="js/script.js"></script>
+</body>
+</html>

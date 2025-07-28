@@ -1,0 +1,182 @@
+/*
+    css/style.css
+    This file contains custom CSS rules that define the visual appearance of your web page.
+    It complements Tailwind CSS by providing base styles and specific component styles.
+*/
+
+/*
+    Body Styles:
+    Applies to the entire page.
+*/
+body {
+    /* Sets the primary font to 'Inter' (imported from Google Fonts), with a generic sans-serif fallback. */
+    font-family: 'Inter', sans-serif;
+    /* Sets a very dark background color, typical for "dark mode" interfaces. */
+    background-color: #0d1117; /* Dark background */
+    /* Sets a light, slightly desaturated text color for good contrast on the dark background. */
+    color: #c9d1d9; /* Light text */
+}
+
+/*
+    Container Styles:
+    A class used on a main div to constrain content width and center it on the page.
+*/
+.container {
+    /* Sets the maximum width of the container to 90% of the viewport width.
+       This makes it responsive, adapting to different screen sizes. */
+    max-width: 90%;
+    /* Centers the block-level element horizontally by setting equal left/right margins. */
+    margin: 0 auto;
+    /* Adds padding around the content inside the container. */
+    padding: 2rem;
+}
+
+/*
+    Card Styles:
+    A class for distinct UI blocks, giving them a card-like appearance.
+*/
+.card {
+    /* Slightly lighter dark background than the body, to make cards stand out. */
+    background-color: #161b22; /* Slightly lighter dark for cards */
+    /* A subtle border to define the card's edges. */
+    border: 1px solid #30363d;
+    /* Rounds the corners of the card for a softer look. */
+    border-radius: 0.5rem;
+    /* Adds internal spacing within the card. */
+    padding: 1.5rem;
+    /* Adds space below each card. */
+    margin-bottom: 1.5rem;
+    /* Adds a subtle shadow for depth, making the card appear lifted. */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/*
+    Input Field Styles:
+    Applies to text inputs and select dropdowns.
+*/
+.input-field {
+    /* Matches the body background for a consistent dark theme. */
+    background-color: #0d1117;
+    /* Border color for input fields. */
+    border: 1px solid #30363d;
+    /* Text color inside input fields. */
+    color: #c9d1d9;
+    /* Internal padding for better usability and appearance. */
+    padding: 0.75rem 1rem;
+    /* Slightly rounded corners for input fields. */
+    border-radius: 0.375rem;
+    /* Makes the input field take up the full width of its parent container. */
+    width: 100%;
+    /* Smooth transition for border color when focused. */
+    transition: border-color 0.2s;
+}
+
+/*
+    Input Field Focus Styles:
+    Applies when an input field is actively selected by the user.
+*/
+.input-field:focus {
+    /* Removes the default browser outline. */
+    outline: none;
+    /* Changes the border color to a vibrant blue to indicate focus. */
+    border-color: #58a6ff; /* Blue focus ring */
+}
+
+/*
+    Button Styles (Primary):
+    Base styles for primary action buttons.
+*/
+.btn {
+    /* Green background, often used for "confirm" or "submit" actions. */
+    background-color: #238636; /* Green for primary actions */
+    /* White text for good contrast on the green background. */
+    color: white;
+    /* Internal padding. */
+    padding: 0.75rem 1.5rem;
+    /* Rounded corners. */
+    border-radius: 0.375rem;
+    /* Semi-bold font weight. */
+    font-weight: 600;
+    /* Smooth transition for background color on hover. */
+    transition: background-color 0.2s;
+    /* Changes cursor to a pointer when hovering, indicating interactivity. */
+    cursor: pointer;
+}
+
+/*
+    Button Hover Styles:
+    Applies when the mouse cursor is over the button.
+*/
+.btn:hover {
+    /* Darkens the green background slightly on hover. */
+    background-color: #2ea043;
+}
+
+/*
+    Button Styles (Secondary):
+    Styles for secondary action buttons, typically less prominent.
+*/
+.btn-secondary {
+    /* Darker grey background. */
+    background-color: #30363d; /* Grey for secondary actions */
+    /* Lighter text color. */
+    color: #c9d1d9;
+}
+
+/*
+    Secondary Button Hover Styles:
+*/
+.btn-secondary:hover {
+    /* Lightens the grey background slightly on hover. */
+    background-color: #444c56;
+}
+
+/*
+    Code Block Styles:
+    Used for displaying generated commands and log output.
+*/
+.code-block {
+    /* Matches the body background for code areas. */
+    background-color: #0d1117;
+    /* Border for the code block. */
+    border: 1px solid #30363d;
+    /* Rounded corners. */
+    border-radius: 0.375rem;
+    /* Internal padding. */
+    padding: 1rem;
+    /* Monospace font is essential for code readability. */
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+    /* 'pre-wrap' preserves whitespace and wraps text when it reaches the end of the line. */
+    white-space: pre-wrap;
+    /* Allows long words (like long command strings) to break and wrap to the next line. */
+    word-break: break-all;
+    /* Sets a maximum height for the code block. */
+    max-height: 300px;
+    /* Adds a scrollbar if content overflows vertically. */
+    overflow-y: auto;
+}
+
+/*
+    Log Textarea Styles:
+    Specific styles for the textarea where users paste log content.
+*/
+.log-textarea {
+    /* Matches code block background. */
+    background-color: #0d1117;
+    /* Border for the textarea. */
+    border: 1px solid #30363d;
+    /* Text color. */
+    color: #c9d1d9;
+    /* Internal padding. */
+    padding: 1rem;
+    /* Rounded corners. */
+    border-radius: 0.375rem;
+    /* Full width. */
+    width: 100%;
+    /* Minimum height for the textarea. */
+    min-height: 200px;
+    /* Monospace font for log content. */
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+    /* Allows the user to resize the textarea vertically. */
+    resize: vertical;
+}
